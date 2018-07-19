@@ -20,10 +20,11 @@ const formatMessages = (messages) => {
     const result = [];
     for (let mType in grouped) {
         if (grouped.hasOwnProperty(mType)) {
-            const line = mType + '\n' + grouped[mType].map(createPermalink).join(", ");
+            const line = '*Message*: ' + mType + '\n*Source*: ' + grouped[mType][0].source + '\n' + grouped[mType].map(createPermalink).join(", ");
             result.push(line);
         }
     }
+    
     return result.join('\n-------------\n');
 };
 
@@ -35,11 +36,25 @@ const parseText = function (result) {
     }
 };
 
+const createAlertMessageEvent = function(result) {
+    return `:warning: *Alert*: ` + result.triggered_condition.title + '\n' + parseText(result)
+}
+
+const makeAttachment = (text) => {
+    return {
+        text,
+        color: '#e8d612',
+    };
+};
+
 class Script {
-    process_incoming_request({request}) {
+    process_incoming_request({request}) {        
         return {
             content: {
-                text: parseText(request.content.check_result)
+                attachments:
+                [
+                    makeAttachment(createAlertMessageEvent(request.content.check_result))
+                ]
             }
         };
     }
