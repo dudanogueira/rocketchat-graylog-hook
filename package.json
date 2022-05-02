@@ -9,6 +9,10 @@
   "scripts": {
     "test": "jest"
   },
+  "jest": {
+    "verbose": true,
+    "testURL": "http://localhost/"
+  },  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/todvora/rocketchat-graylog-hook.git"
@@ -24,7 +28,7 @@
   },
   "homepage": "https://github.com/todvora/rocketchat-graylog-hook#readme",
   "devDependencies": {
-    "jest": "^22.4.3"
+    "jest": "^22.4.4"
   },
   "dependencies": {
     "require-from-string": "^2.0.2"

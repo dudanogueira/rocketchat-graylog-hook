@@ -37,7 +37,12 @@ const parseText = function (result) {
 };
 
 const createAlertMessageEvent = function(result) {
-    return `:warning: *Alert*: ` + result.triggered_condition.title + '\n' + parseText(result)
+    if(result.triggered_condition.title){
+        title = result.triggered_condition.title
+    }else{
+        title = result.result_description
+    }
+    return `:warning: *Alert*: ` + title + '\n' + parseText(result)
 }
 
 const makeAttachment = (text) => {
